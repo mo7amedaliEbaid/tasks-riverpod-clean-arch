@@ -24,6 +24,8 @@ dependencies:
   freezed: ^2.3.2
   intl:
   sqflite:
+  sqlite3_flutter_libs:
+  sqflite_common_ffi:
 
 
 dev_dependencies:

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -44,7 +46,7 @@ class TasksListPage extends StatelessWidget {
             builder: (context, ref, _) {
               return ref.watch(_filteredTasksListProvider).maybeWhen(
                     success: (content) =>
-                        _buildTasksListContainerWidget(ref, content),
+                        _buildTasksListContainerWidget(context, ref, content),
                     error: (_) => _buildErrorWidget(),
                     orElse: () => const Expanded(
                         child: Center(child: CircularProgressIndicator())),
@@ -58,15 +60,26 @@ class TasksListPage extends StatelessWidget {
   }
 
   Widget _buildTasksListContainerWidget(
-      WidgetRef ref, final TaskList tasksList) {
-    return Expanded(child: _buildTasksListWidget(ref, tasksList));
+      BuildContext context, WidgetRef ref, final TaskList tasksList) {
+    return Expanded(child: _buildTasksListWidget(context, ref, tasksList));
   }
 
-  Widget _buildTasksListWidget(final WidgetRef ref, final TaskList tasksList) {
+  Widget _buildTasksListWidget(
+      BuildContext context, final WidgetRef ref, final TaskList tasksList) {
     if (tasksList.length == 0) {
       return const Center(child: Text('No Task'));
     } else {
-      return ListView.builder(
+      return Align(
+        alignment: Alignment.topLeft,
+        child: Wrap(
+          direction: Axis.horizontal,
+          children: tasksList.values
+              .map((task) => _buildTaskItemCardWidget(context, ref, task))
+              .toList(),
+        ),
+      );
+
+      /*   ListView.builder(
         padding: const EdgeInsets.all(8),
         itemCount: tasksList.length,
         shrinkWrap: true,
@@ -74,7 +87,7 @@ class TasksListPage extends StatelessWidget {
         itemBuilder: (final BuildContext context, final int index) {
           return _buildTaskItemCardWidget(context, ref, tasksList[index]);
         },
-      );
+      );*/
     }
   }
 
@@ -82,52 +95,59 @@ class TasksListPage extends StatelessWidget {
       final BuildContext context, final WidgetRef ref, final Task task) {
     final _random = math.Random();
     return InkWell(
-      child: Card(
-          elevation: 5,
-          child: Consumer(builder: (context, ref, child) {
-            final theme = ref.watch(themeModeProvider);
-            return Container(
-              padding: const EdgeInsets.all(18.0),
-              decoration: BoxDecoration(
+      child: Consumer(builder: (context, ref, child) {
+        final theme = ref.watch(themeModeProvider);
+        return Card(
+          color: Colors.transparent,
+          child: Container(
+            width: Platform.isLinux == true ||
+                    Platform.isWindows == true ||
+                    Platform.isMacOS == true
+                ? 400
+                : double.infinity,
+            height: 100,
+            padding: const EdgeInsets.all(18.0),
+            decoration: BoxDecoration(
                 color: theme == ThemeData.light()
                     ? lightcardColors[_random.nextInt(5)]
                     : darkcardColors[_random.nextInt(5)],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          task.title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          DateFormat('yyyy/MM/dd').format(task.dueDate),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          task.description.isEmpty
-                              ? 'No Description'
-                              : task.description,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
+                borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        task.title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        DateFormat('yyyy/MM/dd').format(task.dueDate),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        task.description.isEmpty
+                            ? 'No Description'
+                            : task.description,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 8),
-                  task.isCompleted
-                      ? _buildCheckedIcon(ref, task)
-                      : _buildUncheckedIcon(ref, task),
-                ],
-              ),
-            );
-          })),
+                ),
+                const SizedBox(width: 8),
+                task.isCompleted
+                    ? _buildCheckedIcon(ref, task)
+                    : _buildUncheckedIcon(ref, task),
+              ],
+            ),
+          ),
+        );
+      }),
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(

@@ -35,8 +35,10 @@ Clean Architecture template with `riverpod` , `state_notifier` and `freezed` .
 
 
 <p float="left">
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/tasks_list.jpg" width="170" />
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/tasks_list_dark.jpg" width="170" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/tasksdark.jpg" width="170" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/taskslight.jpg" width="170" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/edittaskdark.jpg" width="170" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/edittasklight.jpg" width="170" /> 
   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/add_task.jpg" width="170" />
    <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/add_task_dark.jpg" width="170" />
 </p>    
