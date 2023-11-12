@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-
+import 'package:tasks_riverpod/shared/constants.dart';
+import 'dart:math' as math;
 import '../../domain/model/task.dart';
 import '../../domain/model/tasks_list.dart';
 import '../../main.dart';
@@ -26,9 +26,9 @@ class TasksListPage extends StatelessWidget {
             return IconButton(
                 onPressed: () {
                   ref.read(themeModeProvider.notifier).state =
-                  theme == ThemeData.light()
-                      ? ThemeData.dark()
-                      : ThemeData.light();
+                      theme == ThemeData.light()
+                          ? ThemeData.dark()
+                          : ThemeData.light();
                 },
                 icon: Icon(theme == ThemeData.dark()
                     ? Icons.light_mode
@@ -43,9 +43,11 @@ class TasksListPage extends StatelessWidget {
           Consumer(
             builder: (context, ref, _) {
               return ref.watch(_filteredTasksListProvider).maybeWhen(
-                    success: (content) => _buildTasksListContainerWidget(ref, content),
+                    success: (content) =>
+                        _buildTasksListContainerWidget(ref, content),
                     error: (_) => _buildErrorWidget(),
-                    orElse: () => const Expanded(child: Center(child: CircularProgressIndicator())),
+                    orElse: () => const Expanded(
+                        child: Center(child: CircularProgressIndicator())),
                   );
             },
           ),
@@ -55,7 +57,8 @@ class TasksListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTasksListContainerWidget(WidgetRef ref, final TaskList tasksList) {
+  Widget _buildTasksListContainerWidget(
+      WidgetRef ref, final TaskList tasksList) {
     return Expanded(child: _buildTasksListWidget(ref, tasksList));
   }
 
@@ -75,42 +78,56 @@ class TasksListPage extends StatelessWidget {
     }
   }
 
-  Widget _buildTaskItemCardWidget(final BuildContext context, final WidgetRef ref, final Task task) {
+  Widget _buildTaskItemCardWidget(
+      final BuildContext context, final WidgetRef ref, final Task task) {
+    final _random = math.Random();
     return InkWell(
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      task.title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      DateFormat('yyyy/MM/dd').format(task.dueDate),
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      task.description.isEmpty ? 'No Description' : task.description,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
+          elevation: 5,
+          child: Consumer(builder: (context, ref, child) {
+            final theme = ref.watch(themeModeProvider);
+            return Container(
+              padding: const EdgeInsets.all(18.0),
+              decoration: BoxDecoration(
+                color: theme == ThemeData.light()
+                    ? lightcardColors[_random.nextInt(5)]
+                    : darkcardColors[_random.nextInt(5)],
               ),
-              const SizedBox(width: 8),
-              task.isCompleted ? _buildCheckedIcon(ref, task) : _buildUncheckedIcon(ref, task),
-            ],
-          ),
-        ),
-      ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          task.title,
+                          style: Theme.of(context).textTheme.titleLarge,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          DateFormat('yyyy/MM/dd').format(task.dueDate),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          task.description.isEmpty
+                              ? 'No Description'
+                              : task.description,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  task.isCompleted
+                      ? _buildCheckedIcon(ref, task)
+                      : _buildUncheckedIcon(ref, task),
+                ],
+              ),
+            );
+          })),
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -174,21 +191,24 @@ class ChipsBarWidget extends StatelessWidget {
                   label: const Text('All'),
                   selected: viewModel.isFilteredByAll(),
                   onSelected: (_) => viewModel.filterByAll(),
-                  selectedColor: viewModel.isFilteredByAll() ? Colors.blue : null,
+                  selectedColor:
+                      viewModel.isFilteredByAll() ? Colors.blue : null,
                 ),
                 const SizedBox(width: 8),
                 InputChip(
                   label: const Text('Completed'),
                   selected: viewModel.isFilteredByCompleted(),
                   onSelected: (_) => viewModel.filterByCompleted(),
-                  selectedColor: viewModel.isFilteredByCompleted() ? Colors.blue : null,
+                  selectedColor:
+                      viewModel.isFilteredByCompleted() ? Colors.blue : null,
                 ),
                 const SizedBox(width: 8),
                 InputChip(
                   label: const Text('Incomplete'),
                   selected: viewModel.isFilteredByIncomplete(),
                   onSelected: (_) => viewModel.filterByIncomplete(),
-                  selectedColor: viewModel.isFilteredByIncomplete() ? Colors.blue : null,
+                  selectedColor:
+                      viewModel.isFilteredByIncomplete() ? Colors.blue : null,
                 ),
               ],
             ),
