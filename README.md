@@ -28,6 +28,12 @@ Clean Architecture template with `riverpod` , `state_notifier` , `freezed` and `
 - sqflite_common_ffi:
 - build_runner:
 
+## ToDo .
+
+- Unit Test.
+- Widget Test.
+- Integration Test.
+
 ## ScreenShots.
 
 - To generate `tasks.freezed.dart` ,`tasks_id.freezed.dart` and `tasks_list.freezed.dart` run `flutter pub run build_runner build` command in your terminal.
