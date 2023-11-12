@@ -3,6 +3,7 @@
 - tasks app.
 - todo app.
 - clean architecture.
+- MVVM Architecture.
 - sqflite database.
 - riverpod state management.
 - multiple themes.
