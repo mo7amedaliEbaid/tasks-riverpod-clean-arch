@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tasks_riverpod/shared/constants.dart';
+import 'package:tasks_riverpod/shared/responsive.dart';
 import 'dart:math' as math;
 import '../../domain/model/task.dart';
 import '../../domain/model/tasks_list.dart';
@@ -64,30 +65,29 @@ class TasksListPage extends StatelessWidget {
     return Expanded(child: _buildTasksListWidget(context, ref, tasksList));
   }
 
-  Widget _buildTasksListWidget(
-      BuildContext context, final WidgetRef ref, final TaskList tasksList) {
+  Widget _buildTasksListWidget(final BuildContext context, final WidgetRef ref,
+      final TaskList tasksList) {
     if (tasksList.length == 0) {
       return const Center(child: Text('No Task'));
     } else {
-      return Align(
-        alignment: Alignment.topLeft,
-        child: Wrap(
-          direction: Axis.horizontal,
-          children: tasksList.values
-              .map((task) => _buildTaskItemCardWidget(context, ref, task))
-              .toList(),
+      return SingleChildScrollView(
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: Responsive.isMobile(context)
+                ? const EdgeInsets.all(18.0)
+                : const EdgeInsets.symmetric(vertical: 20, horizontal: 70),
+            child: Wrap(
+              direction: Axis.horizontal,
+              spacing: 15,
+              runSpacing: 15,
+              children: tasksList.values
+                  .map((task) => _buildTaskItemCardWidget(context, ref, task))
+                  .toList(),
+            ),
+          ),
         ),
       );
-
-      /*   ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: tasksList.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (final BuildContext context, final int index) {
-          return _buildTaskItemCardWidget(context, ref, tasksList[index]);
-        },
-      );*/
     }
   }
 
@@ -97,54 +97,49 @@ class TasksListPage extends StatelessWidget {
     return InkWell(
       child: Consumer(builder: (context, ref, child) {
         final theme = ref.watch(themeModeProvider);
-        return Card(
-          color: Colors.transparent,
-          child: Container(
-            width: Platform.isLinux == true ||
-                    Platform.isWindows == true ||
-                    Platform.isMacOS == true
-                ? 400
-                : double.infinity,
-            height: 100,
-            padding: const EdgeInsets.all(18.0),
-            decoration: BoxDecoration(
-                color: theme == ThemeData.light()
-                    ? lightcardColors[_random.nextInt(5)]
-                    : darkcardColors[_random.nextInt(5)],
-                borderRadius: BorderRadius.circular(20)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        task.title,
-                        style: Theme.of(context).textTheme.titleLarge,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        DateFormat('yyyy/MM/dd').format(task.dueDate),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        task.description.isEmpty
-                            ? 'No Description'
-                            : task.description,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
+        return Container(
+          width: Platform.isAndroid == false || Platform.isIOS == false
+              ? 400
+              : double.infinity,
+          height: 100,
+          padding: const EdgeInsets.all(18.0),
+          decoration: BoxDecoration(
+              color: theme == ThemeData.light()
+                  ? lightcardColors[_random.nextInt(5)]
+                  : darkcardColors[_random.nextInt(5)],
+              borderRadius: BorderRadius.circular(20)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      task.title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      DateFormat('yyyy/MM/dd').format(task.dueDate),
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      task.description.isEmpty
+                          ? 'No Description'
+                          : task.description,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                task.isCompleted
-                    ? _buildCheckedIcon(ref, task)
-                    : _buildUncheckedIcon(ref, task),
-              ],
-            ),
+              ),
+              const SizedBox(width: 8),
+              task.isCompleted
+                  ? _buildCheckedIcon(ref, task)
+                  : _buildUncheckedIcon(ref, task),
+            ],
           ),
         );
       }),
@@ -204,7 +199,7 @@ class ChipsBarWidget extends StatelessWidget {
         ref.watch(_provider);
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
+            padding: const EdgeInsets.all(18),
             child: Row(
               children: [
                 InputChip(

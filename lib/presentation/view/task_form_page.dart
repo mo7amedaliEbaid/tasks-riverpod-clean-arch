@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:tasks_riverpod/shared/responsive.dart';
 
 import '../../domain/model/task.dart';
 import '../viewmodel/taskform/task_form_viewmodel.dart';
@@ -46,7 +46,8 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
       appBar: AppBar(
         title: Text(_viewModel.appBarTitle()),
         actions: [
-          if (_viewModel.shouldShowDeleteTaskIcon()) _buildDeleteTaskIconWidget(),
+          if (_viewModel.shouldShowDeleteTaskIcon())
+            _buildDeleteTaskIconWidget(),
         ],
       ),
       body: _buildBodyWidget(),
@@ -56,12 +57,17 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
   Widget _buildBodyWidget() {
     return Container(
       padding: const EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildFormWidget(),
-          _buildSaveButtonWidget(),
-        ],
+      margin: !Responsive.isMobile(context)
+          ? EdgeInsets.symmetric(horizontal: 500)
+          : EdgeInsets.zero,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildFormWidget(),
+            _buildSaveButtonWidget(),
+          ],
+        ),
       ),
     );
   }
@@ -69,6 +75,7 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
   Widget _buildSaveButtonWidget() {
     return SizedBox(
       width: double.infinity,
+      height: 50,
       child: ElevatedButton(
         onPressed: () {
           final currentState = _formKey.currentState;
@@ -158,7 +165,8 @@ class _TaskFormPageState extends ConsumerState<TaskFormPage> {
       lastDate: _viewModel.datePickerLastDate(),
     );
     if (selectedDate != null) {
-      _dueDateTextFieldController.text = DateFormat('yyyy/MM/dd').format(selectedDate);
+      _dueDateTextFieldController.text =
+          DateFormat('yyyy/MM/dd').format(selectedDate);
       _viewModel.setDueDate(selectedDate);
     }
 
