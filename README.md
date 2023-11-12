@@ -1,5 +1,7 @@
 # tasks_riverpod
 
+Clean Architecture template with `riverpod` , `state_notifier` and `freezed` .
+
 - tasks app.
 - todo app.
 - clean architecture.
