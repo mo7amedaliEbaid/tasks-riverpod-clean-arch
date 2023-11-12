@@ -1,14 +1,16 @@
 # tasks_riverpod
 
-Clean Architecture template with `riverpod` , `state_notifier` and `freezed` .
+Clean Architecture template with `riverpod` , `state_notifier` , `freezed` and `MVVM`.
 
 - tasks app.
 - todo app.
 - clean architecture.
 - MVVM Architecture.
+- MultiPlatform `Desktop`, `Android` and `Ios` .
+- Responsive Design `Portrait` , `Landscape` , `Tablet` and `Desktop` .
 - sqflite database.
 - riverpod state management.
-- multiple themes.
+- multiple themes `Dark` and `Light` ..
 - Add task.
 - Update task.
 - Delete task.
@@ -22,23 +24,46 @@ Clean Architecture template with `riverpod` , `state_notifier` and `freezed` .
 - freezed:
 - intl:
 - sqflite:
+- sqlite3_flutter_libs:
+- sqflite_common_ffi:
 - build_runner:
 
 ## ScreenShots.
 
+- To generate `tasks.freezed.dart` ,`tasks_id.freezed.dart` and `tasks_list.freezed.dart` run `flutter pub run build_runner build` command in your terminal.
 <p float="left">
   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/task_list_freezed.png" width="570" />
   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/task_id_freezed.png" width="570" /> 
   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/task_freezed.png" width="570" />
-   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/widget_tree.png" width="570" />
 </p>     
 
+- Portrait.
 
 <p float="left">
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/tasksdark.jpg" width="170" />
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/taskslight.jpg" width="170" /> 
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/edittaskdark.jpg" width="170" /> 
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/6a6ccf3b45c6e08a78bfa584fa466e54ae378b2a/screenshots/edittasklight.jpg" width="170" /> 
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/add_task.jpg" width="170" />
-   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/add_task_dark.jpg" width="170" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/portrait/tasks2.jpg" width="170" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/portrait/taskslist1.jpg" width="170" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/portrait/completedlight.jpg" width="170" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/portrait/edittaskdark.jpg" width="170" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/portrait/add_task.jpg" width="170" />
+   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/portrait/delete.jpg" width="170" />
 </p>    
+
+- Landscape.
+
+<p float="left">
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/landscape/addlandscape.jpg" width="370" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/landscape/landscape.jpg" width="370" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/landscape/landscape1.jpg" width="370" />
+</p>  
+
+- Desktop.
+
+<p float="left">
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/tasksdark.png" width="670" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/taskslight.png" width="670" /> 
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/incomplete.png" width="670" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/completed.png" width="670" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/editdark.png" width="670" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/delete.png" width="670" />
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/add.png" width="670" />
+</p>   
