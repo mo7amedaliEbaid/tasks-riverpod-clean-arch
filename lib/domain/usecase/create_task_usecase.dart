@@ -1,8 +1,8 @@
 
-import '../model/todo.dart';
+import '../model/task.dart';
 
-abstract class CreateTodoUseCase {
-  Future<Todo> execute(
+abstract class CreateTaskUseCase {
+  Future<Task> execute(
     final String title,
     final String description,
     final bool isCompleted,

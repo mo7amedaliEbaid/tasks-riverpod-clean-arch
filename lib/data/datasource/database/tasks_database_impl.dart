@@ -2,12 +2,12 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../entity/todos_entity.dart';
-import 'todos_database.dart';
+import '../../entity/tasks_entity.dart';
+import 'tasks_database.dart';
 
-class TodosDatabaseImpl implements TodosDatabase {
-  static const _databaseName = 'todos_database';
-  static const _tableName = 'todos_table';
+class TasksDatabaseImpl implements TasksDatabase {
+  static const _databaseName = 'tasks_database';
+  static const _tableName = 'tasks_table';
   static const _databaseVersion = 1;
   static const _columnId = 'id';
   static const _columnTitle = 'title';
@@ -22,41 +22,41 @@ class TodosDatabaseImpl implements TodosDatabase {
   }
 
   @override
-  Future<TodoListEntity> allTodos() async {
+  Future<TaskListEntity> allTasks() async {
     final db = await database;
     return db.query(_tableName);
   }
 
   @override
-  Future<TodoEntity> insertTodo(final TodoEntity todo) async {
+  Future<TaskEntity> insertTask(final TaskEntity task) async {
     final db = await database;
-    late final TodoEntity todoEntity;
+    late final TaskEntity taskentity;
     await db.transaction((txn) async {
       final id = await txn.insert(
         _tableName,
-        todo,
+        task,
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
       final results = await txn.query(_tableName, where: '$_columnId = ?', whereArgs: [id]);
-      todoEntity = results.first;
+      taskentity = results.first;
     });
-    return todoEntity;
+    return taskentity;
   }
 
   @override
-  Future<void> updateTodo(final TodoEntity todo) async {
+  Future<void> updateTask(final TaskEntity task) async {
     final db = await database;
-    final int id = todo['id'];
+    final int id = task['id'];
     await db.update(
       _tableName,
-      todo,
+      task,
       where: '$_columnId = ?',
       whereArgs: [id],
     );
   }
 
   @override
-  Future<void> deleteTodo(final int id) async {
+  Future<void> deleteTask(final int id) async {
     final db = await database;
     await db.delete(
       _tableName,

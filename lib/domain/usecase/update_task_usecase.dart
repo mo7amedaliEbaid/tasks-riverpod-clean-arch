@@ -1,9 +1,9 @@
 
-import '../model/todo_id.dart';
+import '../model/task_id.dart';
 
-abstract class UpdateTodoUseCase {
+abstract class UpdateTaskUseCase {
   Future<void> execute(
-    final TodoId id,
+    final TaskId id,
     final String title,
     final String description,
     final bool isCompleted,

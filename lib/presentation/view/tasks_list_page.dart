@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../domain/model/todo.dart';
-import '../../domain/model/todo_list.dart';
+import '../../domain/model/task.dart';
+import '../../domain/model/tasks_list.dart';
 import '../../main.dart';
-import '../../theme_provider.dart';
-import '../viewmodel/todolist/filter_kind_viewmodel.dart';
-import '../viewmodel/todolist/todo_list_viewmodel.dart';
-import 'todo_form_page.dart';
+import '../../shared/theme_provider.dart';
+import '../viewmodel/taskslist/filter_kind_viewmodel.dart';
+import '../viewmodel/taskslist/todo_list_viewmodel.dart';
+import 'task_form_page.dart';
 
-class TodoListPage extends StatelessWidget {
-  final _filteredTodoListProvider = filteredTodoListProvider;
-  final _todoListProvider = todoListViewModelStateNotifierProvider;
+class TasksListPage extends StatelessWidget {
+  final _filteredTasksListProvider = filteredTasksListProvider;
+  final _tasksListProvider = tasksListViewModelStateNotifierProvider;
 
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ToDo List'),
+        title: const Text('Tasks List'),
         actions: [
           Consumer(builder: (context, ref, child) {
             final theme = ref.watch(themeModeProvider);
@@ -42,8 +42,8 @@ class TodoListPage extends StatelessWidget {
           const Divider(height: 2, color: Colors.grey),
           Consumer(
             builder: (context, ref, _) {
-              return ref.watch(_filteredTodoListProvider).maybeWhen(
-                    success: (content) => _buildTodoListContainerWidget(ref, content),
+              return ref.watch(_filteredTasksListProvider).maybeWhen(
+                    success: (content) => _buildTasksListContainerWidget(ref, content),
                     error: (_) => _buildErrorWidget(),
                     orElse: () => const Expanded(child: Center(child: CircularProgressIndicator())),
                   );
@@ -55,27 +55,27 @@ class TodoListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTodoListContainerWidget(WidgetRef ref, final TodoList todoList) {
-    return Expanded(child: _buildTodoListWidget(ref, todoList));
+  Widget _buildTasksListContainerWidget(WidgetRef ref, final TaskList tasksList) {
+    return Expanded(child: _buildTasksListWidget(ref, tasksList));
   }
 
-  Widget _buildTodoListWidget(final WidgetRef ref, final TodoList todoList) {
-    if (todoList.length == 0) {
-      return const Center(child: Text('No ToDo'));
+  Widget _buildTasksListWidget(final WidgetRef ref, final TaskList tasksList) {
+    if (tasksList.length == 0) {
+      return const Center(child: Text('No Task'));
     } else {
       return ListView.builder(
         padding: const EdgeInsets.all(8),
-        itemCount: todoList.length,
+        itemCount: tasksList.length,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (final BuildContext context, final int index) {
-          return _buildTodoItemCardWidget(context, ref, todoList[index]);
+          return _buildTaskItemCardWidget(context, ref, tasksList[index]);
         },
       );
     }
   }
 
-  Widget _buildTodoItemCardWidget(final BuildContext context, final WidgetRef ref, final Todo todo) {
+  Widget _buildTaskItemCardWidget(final BuildContext context, final WidgetRef ref, final Task task) {
     return InkWell(
       child: Card(
         child: Padding(
@@ -88,25 +88,25 @@ class TodoListPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      todo.title,
-                      style: Theme.of(context).textTheme.headline6,
+                      task.title,
+                      style: Theme.of(context).textTheme.titleLarge,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      DateFormat('yyyy/MM/dd').format(todo.dueDate),
-                      style: Theme.of(context).textTheme.caption,
+                      DateFormat('yyyy/MM/dd').format(task.dueDate),
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      todo.description.isEmpty ? 'No Description' : todo.description,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      task.description.isEmpty ? 'No Description' : task.description,
+                      style: Theme.of(context).textTheme.bodyMedium,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 8),
-              todo.isCompleted ? _buildCheckedIcon(ref, todo) : _buildUncheckedIcon(ref, todo),
+              task.isCompleted ? _buildCheckedIcon(ref, task) : _buildUncheckedIcon(ref, task),
             ],
           ),
         ),
@@ -114,22 +114,22 @@ class TodoListPage extends StatelessWidget {
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => TodoFormPage(todo),
+            builder: (_) => TaskFormPage(task),
           )),
     );
   }
 
-  Widget _buildCheckedIcon(final WidgetRef ref, final Todo todo) {
+  Widget _buildCheckedIcon(final WidgetRef ref, final Task task) {
     return InkResponse(
-      onTap: () => ref.watch(_todoListProvider.notifier).undoTodo(todo),
+      onTap: () => ref.watch(_tasksListProvider.notifier).undoTask(task),
       splashColor: Colors.transparent,
       child: const Icon(Icons.done, size: 24, color: Colors.green),
     );
   }
 
-  Widget _buildUncheckedIcon(final WidgetRef ref, final Todo todo) {
+  Widget _buildUncheckedIcon(final WidgetRef ref, final Task task) {
     return InkResponse(
-      onTap: () => ref.watch(_todoListProvider.notifier).completeTodo(todo),
+      onTap: () => ref.watch(_tasksListProvider.notifier).completeTask(task),
       splashColor: Colors.transparent,
       child: const Icon(
         Icons.radio_button_off_rounded,
@@ -144,7 +144,7 @@ class TodoListPage extends StatelessWidget {
       onPressed: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => const TodoFormPage(null),
+          builder: (_) => const TaskFormPage(null),
         ),
       ),
       child: const Icon(Icons.add),

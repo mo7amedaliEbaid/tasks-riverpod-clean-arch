@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../domain/model/todo.dart';
-import '../viewmodel/todoform/todo_form_viewmodel.dart';
+import '../../domain/model/task.dart';
+import '../viewmodel/taskform/task_form_viewmodel.dart';
 
-class TodoFormPage extends ConsumerStatefulWidget {
-  final Todo? _todo;
+class TaskFormPage extends ConsumerStatefulWidget {
+  final Task? _task;
 
-  const TodoFormPage(this._todo);
+  const TaskFormPage(this._task);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _TodoFormPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TaskFormPageState();
 }
 
-class _TodoFormPageState extends ConsumerState<TodoFormPage> {
-  late final TodoFormViewModel _viewModel;
+class _TaskFormPageState extends ConsumerState<TaskFormPage> {
+  late final TaskFormViewModel _viewModel;
   final _formKey = GlobalKey<FormState>();
   final _dueDateFormFocusNode = _DisabledFocusNode();
   late TextEditingController _dueDateTextFieldController;
 
-  _TodoFormPageState();
+  _TaskFormPageState();
 
   @override
   void initState() {
     super.initState();
 
-    _viewModel = ref.read(todoFormViewModelProvider(widget._todo));
+    _viewModel = ref.read(taskFormViewModelProvider(widget._task));
     _dueDateTextFieldController = TextEditingController(
       text: DateFormat('yyyy/MM/dd').format(_viewModel.initialDueDateValue()),
     );
@@ -46,7 +46,7 @@ class _TodoFormPageState extends ConsumerState<TodoFormPage> {
       appBar: AppBar(
         title: Text(_viewModel.appBarTitle()),
         actions: [
-          if (_viewModel.shouldShowDeleteTodoIcon()) _buildDeleteTodoIconWidget(),
+          if (_viewModel.shouldShowDeleteTaskIcon()) _buildDeleteTaskIconWidget(),
         ],
       ),
       body: _buildBodyWidget(),
@@ -73,7 +73,7 @@ class _TodoFormPageState extends ConsumerState<TodoFormPage> {
         onPressed: () {
           final currentState = _formKey.currentState;
           if (currentState != null && currentState.validate()) {
-            _viewModel.createOrUpdateTodo();
+            _viewModel.createOrUpdateTask();
             Navigator.pop(context);
           }
         },
@@ -143,7 +143,7 @@ class _TodoFormPageState extends ConsumerState<TodoFormPage> {
     );
   }
 
-  Widget _buildDeleteTodoIconWidget() {
+  Widget _buildDeleteTaskIconWidget() {
     return IconButton(
       onPressed: () => _showConfirmDeleteTodoDialog(),
       icon: const Icon(Icons.delete),
@@ -170,7 +170,7 @@ class _TodoFormPageState extends ConsumerState<TodoFormPage> {
       context: context,
       builder: (_) {
         return AlertDialog(
-          content: const Text('Delete ToDo?'),
+          content: const Text('Delete Task?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
@@ -185,7 +185,7 @@ class _TodoFormPageState extends ConsumerState<TodoFormPage> {
       },
     );
     if (result) {
-      _viewModel.deleteTodo();
+      _viewModel.deleteTask();
 
       if (mounted) {
         Navigator.pop(context);

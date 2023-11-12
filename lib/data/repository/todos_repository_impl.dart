@@ -1,58 +1,58 @@
 
 
-import '../../domain/model/todo.dart';
-import '../../domain/model/todo_id.dart';
-import '../../domain/model/todo_list.dart';
-import '../../domain/repository/todos_repository.dart';
-import '../datasource/database/todos_database.dart';
-import '../mapper/todo_list_mapper.dart';
-import '../mapper/todo_mapper.dart';
+import '../../domain/model/task.dart';
+import '../../domain/model/task_id.dart';
+import '../../domain/model/tasks_list.dart';
+import '../../domain/repository/tasks_repository.dart';
+import '../datasource/database/tasks_database.dart';
+import '../mapper/task_list_mapper.dart';
+import '../mapper/task_mapper.dart';
 
-class TodosRepositoryImpl implements TodosRepository {
-  final TodosDatabase database;
+class TasksRepositoryImpl implements TasksRepository {
+  final TasksDatabase database;
 
-  const TodosRepositoryImpl(this.database);
+  const TasksRepositoryImpl(this.database);
 
   @override
-  Future<TodoList> getTodoList() async {
-    final todoListEntity = await database.allTodos();
-    return TodoListMapper.transformToModel(todoListEntity);
+  Future<TaskList> getTasksList() async {
+    final tasksListEntity = await database.allTasks();
+    return TasksListMapper.transformToModel(tasksListEntity);
   }
 
   @override
-  Future<Todo> createTodo(
+  Future<Task> createTask(
     final String title,
     final String description,
     final bool isCompleted,
     final DateTime dueDate,
   ) async {
-    final todoEntity = await database.insertTodo(TodoMapper.transformToNewEntityMap(
+    final taskEntity = await database.insertTask(TaskMapper.transformToNewEntityMap(
       title,
       description,
       isCompleted,
       dueDate,
     ));
-    return TodoMapper.transformToModel(todoEntity);
+    return TaskMapper.transformToModel(taskEntity);
   }
 
   @override
-  Future<void> updateTodo(
-    final TodoId id,
+  Future<void> updateTask(
+    final TaskId id,
     final String title,
     final String description,
     final bool isCompleted,
     final DateTime dueDate,
   ) async {
-    final todo = Todo(
+    final task = Task(
       id: id,
       title: title,
       description: description,
       isCompleted: isCompleted,
       dueDate: dueDate,
     );
-    await database.updateTodo(TodoMapper.transformToMap(todo));
+    await database.updateTask(TaskMapper.transformToMap(task));
   }
 
   @override
-  Future<void> deleteTodo(final TodoId id) async => await database.deleteTodo(id.value);
+  Future<void> deleteTask(final TaskId id) async => await database.deleteTask(id.value);
 }
