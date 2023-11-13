@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:tasks_riverpod/shared/theme_provider.dart';
 
-import 'presentation/view/tasks_list_page.dart';
+import 'presentation/view/pages/tasks_list_page.dart';
 
 void main() {
   if (Platform.isWindows || Platform.isLinux ) {

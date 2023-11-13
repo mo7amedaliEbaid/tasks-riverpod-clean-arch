@@ -6,12 +6,12 @@ import 'package:intl/intl.dart';
 import 'package:tasks_riverpod/shared/constants.dart';
 import 'package:tasks_riverpod/shared/responsive.dart';
 import 'dart:math' as math;
-import '../../domain/model/task.dart';
-import '../../domain/model/tasks_list.dart';
-import '../../main.dart';
-import '../../shared/theme_provider.dart';
-import '../viewmodel/taskslist/filter_kind_viewmodel.dart';
-import '../viewmodel/taskslist/task_list_viewmodel.dart';
+import '../../../domain/model/task.dart';
+import '../../../domain/model/tasks_list.dart';
+import '../../../main.dart';
+import '../../../shared/theme_provider.dart';
+import '../../viewmodel/taskslist/task_list_viewmodel.dart';
+import '../widgets/chipsbar_widget.dart';
 import 'task_form_page.dart';
 
 class TasksListPage extends StatelessWidget {
@@ -188,48 +188,4 @@ class TasksListPage extends StatelessWidget {
   }
 }
 
-class ChipsBarWidget extends StatelessWidget {
-  final _provider = filterKindViewModelStateNotifierProvider;
 
-  @override
-  Widget build(final BuildContext context) {
-    return Consumer(
-      builder: (context, ref, _) {
-        final viewModel = ref.watch(_provider.notifier);
-        ref.watch(_provider);
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Row(
-              children: [
-                InputChip(
-                  label: const Text('All'),
-                  selected: viewModel.isFilteredByAll(),
-                  onSelected: (_) => viewModel.filterByAll(),
-                  selectedColor:
-                      viewModel.isFilteredByAll() ? Colors.blue : null,
-                ),
-                const SizedBox(width: 8),
-                InputChip(
-                  label: const Text('Completed'),
-                  selected: viewModel.isFilteredByCompleted(),
-                  onSelected: (_) => viewModel.filterByCompleted(),
-                  selectedColor:
-                      viewModel.isFilteredByCompleted() ? Colors.blue : null,
-                ),
-                const SizedBox(width: 8),
-                InputChip(
-                  label: const Text('Incomplete'),
-                  selected: viewModel.isFilteredByIncomplete(),
-                  onSelected: (_) => viewModel.filterByIncomplete(),
-                  selectedColor:
-                      viewModel.isFilteredByIncomplete() ? Colors.blue : null,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}

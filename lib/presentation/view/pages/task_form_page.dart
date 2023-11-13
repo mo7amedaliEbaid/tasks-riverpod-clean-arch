@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tasks_riverpod/shared/responsive.dart';
 
-import '../../domain/model/task.dart';
-import '../viewmodel/taskform/task_form_viewmodel.dart';
+import '../../../domain/model/task.dart';
+import '../../viewmodel/taskform/task_form_viewmodel.dart';
 
 class TaskFormPage extends ConsumerStatefulWidget {
   final Task? _task;
