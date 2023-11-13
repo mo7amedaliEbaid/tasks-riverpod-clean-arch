@@ -11,7 +11,7 @@ import '../../domain/model/tasks_list.dart';
 import '../../main.dart';
 import '../../shared/theme_provider.dart';
 import '../viewmodel/taskslist/filter_kind_viewmodel.dart';
-import '../viewmodel/taskslist/todo_list_viewmodel.dart';
+import '../viewmodel/taskslist/task_list_viewmodel.dart';
 import 'task_form_page.dart';
 
 class TasksListPage extends StatelessWidget {

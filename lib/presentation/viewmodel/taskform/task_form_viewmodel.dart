@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/model/task.dart';
 import '../../../domain/model/task_id.dart';
-import '../taskslist/todo_list_viewmodel.dart';
+import '../taskslist/task_list_viewmodel.dart';
 
 final taskFormViewModelProvider =
     Provider.autoDispose.family<TaskFormViewModel, Task?>((ref, task) {
