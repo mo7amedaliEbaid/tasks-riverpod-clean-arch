@@ -1,10 +1,12 @@
 # tasks_riverpod
 
-Clean Architecture template with `riverpod` , `state_notifier` , `freezed` and `MVVM`.
+Clean Architecture template using `riverpod` , `state_notifier` , `freezed` and `MVVM` , with unit and widget testing.
 
 - tasks app.
 - todo app.
 - clean architecture.
+- unit test.
+- widget test.
 - MVVM Architecture.
 - MultiPlatform `Desktop`, `Android` and `Ios` .
 - Responsive Design `Portrait` , `Landscape` , `Tablet` and `Desktop` .
@@ -27,20 +29,19 @@ Clean Architecture template with `riverpod` , `state_notifier` , `freezed` and `
 - sqlite3_flutter_libs:
 - sqflite_common_ffi:
 - build_runner:
-
-## ToDo .
-
-- Unit Test.
-- Widget Test.
-- Integration Test.
+- mockito:
 
 ## ScreenShots.
+
+- All tests passed.
+
+<p float="left">
+  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/87053eba10f194afb3a0269586e78e1cd9faef45/screenshots/test/Screenshot%20from%202023-11-16%2002-14-14.png" width="570" />
+</p>    
 
 - To generate `tasks.freezed.dart` ,`tasks_id.freezed.dart` and `tasks_list.freezed.dart` run `flutter pub run build_runner build` command in your terminal.
 <p float="left">
   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/task_list_freezed.png" width="570" />
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/task_id_freezed.png" width="570" /> 
-  <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/8d1f5051591c66ba6d48739a7cf4b6c1506571dc/screenshots/task_freezed.png" width="570" />
 </p>     
 
 - Portrait.
