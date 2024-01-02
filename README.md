@@ -8,7 +8,7 @@ Clean Architecture template using `riverpod` , `state_notifier` , `freezed` and 
 - unit test.
 - widget test.
 - MVVM Architecture.
-- MultiPlatform `Desktop`, `Android` and `Ios` .
+- MultiPlatform   `Web`, `Desktop`, `Android` and `Ios` .
 - Responsive Design `Portrait` , `Landscape` , `Tablet` and `Desktop` .
 - sqflite database.
 - riverpod state management.
@@ -28,6 +28,7 @@ Clean Architecture template using `riverpod` , `state_notifier` , `freezed` and 
 - sqflite:
 - sqlite3_flutter_libs:
 - sqflite_common_ffi:
+- sqflite_common_ffi_web:
 - build_runner:
 - mockito:
 
@@ -63,7 +64,7 @@ Clean Architecture template using `riverpod` , `state_notifier` , `freezed` and 
   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/landscape/landscape1.jpg" width="370" />
 </p>  
 
-- Desktop.
+- Desktop/Web.
 
 <p float="left">
   <img src="https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/blob/f1028be14b830e9c490070b0053863d0f8e7cfe6/screenshots/desktop/tasksdark.png" width="670" />
