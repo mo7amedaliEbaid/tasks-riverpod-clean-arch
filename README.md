@@ -24,6 +24,9 @@ Clean Architecture template using `riverpod` , `state_notifier` , `freezed` and 
 - Delete task.
 - Filter tasks.
 
+### TODO.
+- Improve UI.
+
 ## Dependencies.
 
 - flutter_riverpod:
