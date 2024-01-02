@@ -1,3 +1,6 @@
+[![Test](https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/actions/workflows/test.yml/badge.svg)](https://github.com/mo7amedaliEbaid/tasks-riverpod-clean-arch/actions/workflows/test.yml)
+
+
 ### Visit Web App [Here](https://easy-chat-84b64.web.app/)
 
 
