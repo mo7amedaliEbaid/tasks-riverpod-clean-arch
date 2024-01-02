@@ -8,7 +8,6 @@ import 'package:tasks_riverpod/shared/responsive.dart';
 import 'dart:math' as math;
 import '../../../domain/model/task.dart';
 import '../../../domain/model/tasks_list.dart';
-import '../../../main.dart';
 import '../../../shared/theme_provider.dart';
 import '../../viewmodel/taskslist/task_list_viewmodel.dart';
 import '../widgets/chipsbar_widget.dart';
@@ -98,9 +97,7 @@ class TasksListPage extends StatelessWidget {
       child: Consumer(builder: (context, ref, child) {
         final theme = ref.watch(themeModeProvider);
         return Container(
-          width: Platform.isAndroid == false || Platform.isIOS == false
-              ? 400
-              : double.infinity,
+          width: 400,
           height: 100,
           padding: const EdgeInsets.all(18.0),
           decoration: BoxDecoration(

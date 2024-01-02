@@ -26,6 +26,7 @@ dependencies:
   sqflite:
   sqlite3_flutter_libs:
   sqflite_common_ffi:
+  sqflite_common_ffi_web:
 
 
 dev_dependencies:
