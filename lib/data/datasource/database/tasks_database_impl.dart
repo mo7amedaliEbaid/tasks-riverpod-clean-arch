@@ -1,4 +1,3 @@
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -37,7 +36,8 @@ class TasksDatabaseImpl implements TasksDatabase {
         task,
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-      final results = await txn.query(_tableName, where: '$_columnId = ?', whereArgs: [id]);
+      final results =
+          await txn.query(_tableName, where: '$_columnId = ?', whereArgs: [id]);
       taskentity = results.first;
     });
     return taskentity;

@@ -9,7 +9,7 @@ import '../../viewmodel/taskform/task_form_viewmodel.dart';
 class TaskFormPage extends ConsumerStatefulWidget {
   final Task? _task;
 
-  const TaskFormPage(this._task);
+  const TaskFormPage(this._task, {super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _TaskFormPageState();

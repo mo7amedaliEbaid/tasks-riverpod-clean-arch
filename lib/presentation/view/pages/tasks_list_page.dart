@@ -1,11 +1,11 @@
-import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tasks_riverpod/shared/constants.dart';
 import 'package:tasks_riverpod/shared/responsive.dart';
-import 'dart:math' as math;
+
 import '../../../domain/model/task.dart';
 import '../../../domain/model/tasks_list.dart';
 import '../../../shared/theme_provider.dart';
@@ -17,6 +17,8 @@ class TasksListPage extends StatelessWidget {
   final _filteredTasksListProvider = filteredTasksListProvider;
   final _tasksListProvider = tasksListViewModelStateNotifierProvider;
 
+  TasksListPage({super.key});
+
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
@@ -27,10 +29,12 @@ class TasksListPage extends StatelessWidget {
             final theme = ref.watch(themeModeProvider);
             return IconButton(
                 onPressed: () {
-                  ref.read(themeModeProvider.notifier).state =
-                      theme == ThemeData.light()
-                          ? ThemeData.dark()
-                          : ThemeData.light();
+                  // ref.read(themeModeProvider.notifier).state =
+                  //     theme == ThemeData.light()
+                  //         ? ThemeData.dark()
+                  //         : ThemeData.light();
+
+                  ref.read(themeModeProvider.notifier).setTheme();
                 },
                 icon: Icon(theme == ThemeData.dark()
                     ? Icons.light_mode
@@ -92,18 +96,18 @@ class TasksListPage extends StatelessWidget {
 
   Widget _buildTaskItemCardWidget(
       final BuildContext context, final WidgetRef ref, final Task task) {
-    final _random = math.Random();
+    final random = math.Random();
     return InkWell(
       child: Consumer(builder: (context, ref, child) {
         final theme = ref.watch(themeModeProvider);
         return Container(
           width: 400,
-          height: 100,
+          height: 120,
           padding: const EdgeInsets.all(18.0),
           decoration: BoxDecoration(
               color: theme == ThemeData.light()
-                  ? lightcardColors[_random.nextInt(5)]
-                  : darkcardColors[_random.nextInt(5)],
+                  ? lightcardColors[random.nextInt(5)]
+                  : darkcardColors[random.nextInt(5)],
               borderRadius: BorderRadius.circular(20)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,5 +188,3 @@ class TasksListPage extends StatelessWidget {
     return const Center(child: Text('An error has occurred!'));
   }
 }
-
-
