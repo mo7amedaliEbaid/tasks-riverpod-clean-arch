@@ -7,7 +7,7 @@ import Foundation
 
 import isar_flutter_libs
 import path_provider_foundation
-import sqflite_darwin
+import sqflite
 import sqlite3_flutter_libs
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
