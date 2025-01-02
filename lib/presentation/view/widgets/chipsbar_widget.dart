@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../viewmodel/taskslist/filter_kind_viewmodel.dart';
 
 class ChipsBarWidget extends StatelessWidget {
+
+  ChipsBarWidget({super.key});
   final _provider = filterKindViewModelStateNotifierProvider;
 
   @override
