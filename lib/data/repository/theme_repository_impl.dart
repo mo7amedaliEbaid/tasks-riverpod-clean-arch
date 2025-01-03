@@ -1,4 +1,4 @@
-import 'package:flutter/src/material/theme_data.dart';
+import 'package:flutter/material.dart';
 import 'package:tasks_riverpod/data/datasource/theme/theme_pref.dart';
 import 'package:tasks_riverpod/domain/repository/theme_repository.dart';
 
